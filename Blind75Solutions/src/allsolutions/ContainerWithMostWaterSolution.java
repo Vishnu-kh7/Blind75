@@ -25,14 +25,17 @@ public class ContainerWithMostWaterSolution {
         
     }
 	private static int computeMaxArea(int start, int end, int[] height, int tempMaxArea) {
-		if(start<end) {
-			int area = Math.min(height[start], height[end]) * (end-start);
-			if(height[start]<=height[end])
-				computeMaxArea(start+1,end,height,Math.max(tempMaxArea, area));
-			else
-				computeMaxArea(start,end-1,height,Math.max(tempMaxArea, area));
-		}
-		
+		if(start==end) {
 			return tempMaxArea;
+		}
+		else if(height[start]<=height[end]) {
+			int area = Math.min(height[start], height[end]) * (end-start);
+			tempMaxArea = computeMaxArea(start+1,end,height,Math.max(tempMaxArea, area));
+		}
+		else {
+			int area = Math.min(height[start], height[end]) * (end-start);
+			tempMaxArea = computeMaxArea(start,end-1,height,Math.max(tempMaxArea, area));
+		}
+		return tempMaxArea;
 	}
 }
